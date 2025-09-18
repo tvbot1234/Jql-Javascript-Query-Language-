@@ -1,20 +1,20 @@
-# JQL documentation
+# JQL Documentation
 
 ## Description
-O JQL é uma ferramenta javascript criada para ser fácil de usar e simples além de ter diversas funções e ter um código fácil de entender, feito sem utilizar frameworks ou tecnologias externas.
+
+JQL is a JavaScript tool designed to be simple and easy to use, offering various functions with readable code, built without external frameworks or technologies.
 
 ## Documentation
 
-### Como usá-lo?
+### How to use it?
 
-Ele possui uma sintaxe bem simples, basta inicializar um "post" utilizando a seguinte linha de código:
+It has a very simple syntax. Just initialize a "post" using the following line of code:
 ```javascript
 import * as jql from './Jql/Main.process.js';
 ```
+### How to use its CRUD?
 
-### Como utilizar sua CRUD?
-
-Para utilizar ela, um exemplo de uso é: 
+To use it, an example is:
 ```javascript
 import * as jql from './Jql/Main.process.js';
 jql.post(`example_([
@@ -22,30 +22,31 @@ jql.post(`example_([
     type = "project"
 ])`);
 ```
-Este código executa um post no banco de dados, para ele funcionar corretamente, você precisa de um arquivo ".jData" no mesmo diretório da pasta do JQL.
+This code executes a post in the database. For it to work properly, you need a .jData file in the same directory as the JQL folder.
 
 ### CRUD
 
-Esta ferramenta possui:
+This tool provides:
 
-- Post para adicionar uma DE(Data Entry) ao banco.
+- Post – Add a DE (Data Entry) to the database.
 
-- Get para pegar uma DE.
+- Get – Retrieve a DE.
 
-- DBUpdate para atualizar o banco de dados inteiro.
+- DBUpdate – Update the entire database.
 
-- Update para atualizar uma DE e pode adicionar o tipo dela, sendo para adicionar ou remover um field da DE.
+- Update – Update a DE and specify its type, either adding or removing a field from the DE.
 
-- DERemove para remover um bloco inteiro do banco de dados.
+- DERemove – Remove an entire block from the database.
 
-- CheckExistence para checar a existência de uma DE.
+- CheckExistence – Check if a DE exists.
 
-- FilterBy para filtrar um field do banco de dados, ele retorna cada linha que contém o field e o valor, imprimindo a linha no console.
+- FilterBy – Filter a field from the database; it returns every line containing the field and value, printing the line to the console.
 
-## Contribuições
 
-- Criadores do JQL: [Enzo/tvbot](https://github.com/tvbot1234)
+### Contributions
 
-- Patch atual: 1.0.0, lançada em 17/09/2025
+Creators of JQL: [Enzo/tvbot](https://github.com/tvbot1234)
 
-- Para contribuir com o JQL, visite o repositório do JQL: [JQL](https://github.com/tvbot1234/JQL)
+Current Patch: 1.0.0, released on 17/09/2025
+
+To contribute to JQL, visit the JQL repository: [JQL](https://github.com/tvbot1234/Jql)
