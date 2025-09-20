@@ -49,4 +49,5 @@ Creators of JQL: [Enzo/tvbot](https://github.com/tvbot1234)
 
 Current Patch: 1.0.0, released on 17/09/2025
 
-To contribute to JQL, visit the JQL repository: [JQL](https://github.com/tvbot1234/Jql)
+To contribute to JQL, visit the JQL repository: [JQL]([https://github.com/tvbot1234/Jql](https://github.com/tvbot1234/Jql-Javascript-Query-Language-/blob/main/README.md?plain=1))
+
