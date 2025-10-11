@@ -49,7 +49,7 @@ const mainStream = new WritableStream({
     }
 });
 function post(de) {
-    if (!de.startsWith(`\[a-zA-Z]_([`)) {
+    if (!/^[a-zA-Z]_(\[([\s\S])\]\)/.test(de)) {
         console.log("Invalid data, port used: 502");
     } else {
         mainStream.write(de);
@@ -124,3 +124,4 @@ export {
     filterBy
 
 }
+
