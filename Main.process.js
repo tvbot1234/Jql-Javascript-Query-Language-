@@ -59,7 +59,10 @@ function post(de) {
 function get(de) {
     if (fs.readFileSync(initializer, 'utf-8').includes(de.concat("_(["))) {
         const broken = fs.readFileSync(initializer, 'utf-8').split('\n');
-        return broken.slice(broken.indexOf(de.concat("_([")), getNextElement(broken, broken.indexOf(de.concat("_([")), '])'));
+        return broken.slice(
+            broken.indexOf(de.concat("_([")), 
+            getNextElement(broken, broken.indexOf(de.concat("_([")), '])')
+        ).join('\n');
     }
 }
 function dbUpdate(gde) {
@@ -124,4 +127,5 @@ export {
     filterBy
 
 }
+
 
