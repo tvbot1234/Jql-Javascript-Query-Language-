@@ -25,7 +25,7 @@ function getNextElement(ref, start, char) {
 }
 function remove(arr, robj) {
     let ret = [];
-    for (let i of arr) i === robj ? ret.push(i) : null;
+    for (let i of arr) i != robj ? ret.push(i) : null;
     return ret;
 }
 const mainStream = new WritableStream({
@@ -122,4 +122,5 @@ export {
     deRemove,
     checkExistence,
     filterBy
+
 }
