@@ -25,51 +25,31 @@ function getNextElement(ref, start, char) {
 }
 function remove(arr, robj) {
     let ret = [];
-    for (let i of arr) i != robj ? ret.push(i) : null;
+    for (let i of arr) i === robj ? ret.push(i) : null;
     return ret;
 }
-const mainStream = new WritableStream({
-    write(chunk) {
-        let chunkers;
-        if (chunk.split('\n').length > 10) {
-            chunkers = spreadToShare(chunk.split('\n'), 10);
-            for (let iterator of chunkers) {
-                fs.appendFileSync(initializer, iterator.join('\n'));
-            }
-        } else {
-            fs.appendFileSync(initializer, chunk);
-        }
-        console.log("process sucessful, port used: 001");
-    },
-    close() {
-        console.log("Closing post method, port used: 001");
-    },
-    abort() {
-        console.log("Aborting post method, port used: 502");
-    }
-});
-function post(de) {
+function post(de, path = initializer) {
     if (!/^[a-zA-Z]_(\[([\s\S])\]\)/.test(de)) {
         console.log("Invalid data, port used: 502");
     } else {
-        mainStream.write(de);
+        fs.appendFileSync(path, de);
         console.log("Post sucessful, port used: 001");
     }
 }
 function get(de) {
-    if (fs.readFileSync(initializer, 'utf-8').includes(de.concat("_(["))) {
-        const broken = fs.readFileSync(initializer, 'utf-8').split('\n');
+    if (fs.readFileSync(path, 'utf-8').includes(de.concat("_(["))) {
+        const broken = fs.readFileSync(path, 'utf-8').split('\n');
         return broken.slice(
             broken.indexOf(de.concat("_([")), 
             getNextElement(broken, broken.indexOf(de.concat("_([")), '])')
         ).join('\n');
     }
 }
-function dbUpdate(gde) {
-    fs.writeFileSync(initializer, gde);
+function dbUpdate(gde, path = initializer) {
+    fs.writeFileSync(path, gde);
 }
-function update(ude, type, util = null) {
-    let par = fs.readFileSync(initializer, 'utf-8').split('\n');
+function update(ude, type, util = null, path = initializer) {
+    let par = fs.readFileSync(path, 'utf-8').split('\n');
     const block = par
         .slice(par.indexOf(ude.concat("_([")), getNextElement(par, par.indexOf(ude), '])') - 1)
         .join("\n");
@@ -92,21 +72,21 @@ function update(ude, type, util = null) {
             console.log("Invalid update type, port used: 502");
     }
 }
-function deRemove(de) {
-    const par = fs.readFileSync(initializer, 'utf-8').split('\n');
+function deRemove(de, path = initializer) {
+    const par = fs.readFileSync(path, 'utf-8').split('\n');
     const blockDe = par.slice(par.indexOf(de.concat("_([")), getNextElement(par, par.indexOf(de), '])'));
     let ret = remove(par, ...blockDe);
     fs.writeFileSync(initializer, ret.join('\n'));
     console.log("Process sucessful, port used: 001");
 }
-function checkExistence(de) {
-    if (fs.readFileSync(initializer, 'utf-8').includes(de.concat("_(["))) {
+function checkExistence(de, path = initializer) {
+    if (fs.readFileSync(path, 'utf-8').includes(de.concat("_(["))) {
         return true;
     } else {
         return false;
     }
 }
-function filterBy(field, value) {
+function filterBy(field, value, path = initializer) {
     let pares = fs.readFileSync(initializer, 'utf-8').split('\n');
     let ret = [];
     for (let i of pares) {
@@ -117,6 +97,19 @@ function filterBy(field, value) {
     }
     return ret;
 }
+
+function setPointer(path) {
+    return {
+        get: (de) => get(de, path),
+        post: (de) => post(de, path),
+        dbUpdate: (dbu) => dbUpdate(dbu, path),
+        update: (ude, type, util = null) => update(ude, type, util, path),
+        deRemove: (de) => deRemove(de),
+        checkExistence: (de) => checkExistence(de, path),
+        filter: (field, value) => filterBy(field, value, path)
+    }
+}
+
 export {
     post,
     get,
@@ -124,8 +117,6 @@ export {
     update,
     deRemove,
     checkExistence,
-    filterBy
-
+    filterBy,
+    setPointer
 }
-
-
